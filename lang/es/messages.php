@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'Registro_de_High' => 'Registro de High',
+    'Idioma' => 'Idioma',
+    'es' => 'Español',
+    'en' => 'Inglés',
+    'Complete_todos_los_campos_y_presiona_Guardar' => 'Complete todos los campos y presiona guardar',
+    'acciones' => 'Acciones',
+    'Cerrar' => 'Cerrar',
+    'Guardar' => 'Guardar',
+    'Mercado' => 'Mercado',
+    'Chat' => 'Chat',
+    'Sobre_nosotros' => 'Sobre nosotros',
+    'Herramientas' => 'Herramientas',
+    'Tipo' => 'Tipo',
+    'Subido' => 'Fecha de registro',
+    'Puntuación' => 'Puntuación',
+    'Comentarios' => 'Comentarios',
+    'Escribe_tu_comentario' => 'Escribe tu comentario',
+    'Copiar' => 'Copiar',
+    'copiar_portapapeles' => 'Copiar al portapapeles',
+    'comparte_experiencia' => 'Comparte tu experiencia con el jumper aquí',
+    'sin_comentarios' => 'No se ha registrado ningún comentario',
+    'ingrese_pdi' => 'Ingrese su pid',
+];
