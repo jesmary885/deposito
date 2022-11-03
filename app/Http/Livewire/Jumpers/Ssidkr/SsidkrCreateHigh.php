@@ -46,5 +46,8 @@ class SsidkrCreateHigh extends Component
         $link->user_id = $user_auth;
         $link->jumper_type_id = 2;
         $link->save();
+
+        $this->reset(['high','isopen','pid','psid']);
+        $this->emitTo('jumpers.ssidkr.ssidkr-index','render');
     }
 }

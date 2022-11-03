@@ -4,26 +4,24 @@
 
  
 <div class="row flex mt-2">
-
   <div class="col-12 col-sm-6 col-md-3">
+  <a href="{{route('marketplace.index')}}">
     <div class="info-box flex">
-      <span class="info-box-icon bg-success elevation-1 flex">
-        <i class="fas fa-shopping-cart">
-         
-        </i>
-      </span>
-      <div class="info-box-content flex">
-        <span class="info-box-text">{{__('messages.Mercado')}}</span>
-        <span class="info-box-number"></span>
-      </div>
+        <span class="info-box-icon bg-success elevation-1 flex">
+          <i class="fas fa-shopping-cart"></i>
+        </span>
+        <div class="info-box-content flex">
+          <span class="info-box-text">{{__('messages.Mercado')}}</span>
+          <span class="info-box-number"></span>
+        </div>
     </div>
+    </a>
   </div>
 
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box flex">
       <span class="info-box-icon bg-danger elevation-1 flex">
         <i class="far fa-comment">
-      
         </i>
       </span>
       <div class="info-box-content flex">
@@ -48,20 +46,19 @@
   </div>
 
   <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box flex">
-      <span class="info-box-icon bg-warning elevation-1 flex">
-        <i class="fas fa-users">
-     
-        </i>
-      </span>
-      <div class="info-box-content flex">
-        <span class="info-box-text">{{__('messages.Sobre_nosotros')}}</span>
-        <span class="info-box-number"> </span>
+    <a href="{{route('marketplace_compras.index')}}">
+      <div class="info-box flex">
+        <span class="info-box-icon bg-warning elevation-1 flex">
+          <i class="fas fa-users">
+          </i>
+        </span>
+        <div class="info-box-content flex">
+          <span class="info-box-text">{{__('messages.mis_compras')}}</span>
+          <span class="info-box-number"> </span>
+        </div>
       </div>
-    </div>
+    </a>
   </div>
-
-
 
 </div>
 

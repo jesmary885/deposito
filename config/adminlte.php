@@ -64,8 +64,8 @@ return [
     */
 
     'logo' => null,
-    'logo_img' => 'storage/logo/logo.png',
-    'logo_img_class' => 'img-circle w-50 mx-auto d-block',
+    'logo_img' => 'storage/logo/logo2.png',
+    'logo_img_class' => 'img-circle w-40 mx-auto d-block',
     'logo_img_xl' => null,
     'logo_img_xl_class' => null,
     'logo_img_alt' => null,

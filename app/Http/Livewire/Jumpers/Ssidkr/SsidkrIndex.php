@@ -14,7 +14,7 @@ class SsidkrIndex extends Component
     use WithPagination;
     protected $paginationTheme = "bootstrap";
 
-    public $calculo_high,$pid_new,$search,$jumper_2,$points_user,$user_auth,$comentario,$is_high,$is_basic,$calc_link ;
+    public $calculo_high = 0,$pid_new,$search,$jumper_2,$points_user,$user_auth,$comentario,$is_high,$is_basic,$calc_link ;
 
     protected $listeners = ['render' => 'render'];
 
@@ -59,6 +59,7 @@ class SsidkrIndex extends Component
                     $this->calc_link = 1;
                 } 
                 if($jumper->jumper_type_id == 2){
+                    $link_complete = substr($this->search,5);
                     $this->is_high = "si";
                 } 
            }
@@ -71,6 +72,7 @@ class SsidkrIndex extends Component
                     $this->calc_link = 1;
                 } 
                 if($jumper->jumper_type_id == 2){
+                    $link_complete = substr($this->search,55);
                     $this->is_high = "si";
                 } 
            }
@@ -92,13 +94,14 @@ class SsidkrIndex extends Component
                 $jumper_complete = 'https://dkr1.ssisurveys.com/projects/end?rst=1&psid='.$jumper->psid.$link_complete.'**&basic='.$jumper->basic;
             } 
             if($jumper->jumper_type_id == 2){
+                if($this->calc_link == 0){
+                    $jumper_complete = 'Ingrese su PID para calcular el valor high';
+                }
                 if($this->calc_link == 1){
                     $jumper_complete = 'https://dkr1.ssisurveys.com/projects/end?rst=1&psid='.$jumper->psid.$link_complete.'**&high='.$this->calculo_high;
                 }
-                
             } 
         }
-
         else{
             $this->jumper_2 = '';
         }
@@ -118,9 +121,7 @@ class SsidkrIndex extends Component
         $links_points->link_id = $jumper_id->id;
         $links_points->point = 'positive';
         $links_points->save();
-
         $this->emit('render', 'jumpers.ssidkr.ssidkr-index');
-
     }
 
     public function negativo($jumper_id){
@@ -130,32 +131,29 @@ class SsidkrIndex extends Component
         $jumper_id->update([
             'negative_points' => $new_points, 
         ]);
-
         $links_points = new User_Links_Points();
         $links_points->user_id = auth()->user()->id;
         $links_points->link_id = $jumper_id->id;
         $links_points->point = 'negative';
         $links_points->save();
-
         $this->emit('render', 'jumpers.ssidkr.ssidkr-index');
     }
 
     public function comentar($jumper_id){
         $jumper_id = Link::where('id',$jumper_id)->first();
-
         $comment = new Comments();
         $comment->comment = $this->comentario;
         $comment->link_id = $jumper_id->id;
         $comment->user_id = auth()->user()->id;
         $comment->save();
-
         $this->emit('render', 'jumpers.ssidkr.ssidkr-index');
     }
 
     public function calculo_high($jumper_id){
-        $this->calculo_high = 123;
-        $this->calc_link = 1;
 
+        $jumper_id = Link::where('id',$jumper_id)->first();
+        $this->calculo_high = $jumper_id->high - ($jumper_id->pid - $this->pid_new) * round($jumper_id->high / $jumper_id->pid,0);
+        $this->calc_link = 1;
         $this->emit('render', 'jumpers.ssidkr.ssidkr-index');
     }
 }

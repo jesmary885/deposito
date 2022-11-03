@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JumpersController;
@@ -55,10 +55,17 @@ Route::get('ssidkr',[JumpersController::class,'ssidkr'])->name('ssidkr.index');
 //Marketplace
 
 Route::get('marketplace',[MarketplaceController::class,'index'])->name('marketplace.index');
+Route::get('marketplace_shop/{marketplace}',[MarketplaceController::class,'shop'])->name('marketplace.shop');
+
+//chat
+Route::get('chat-conver',[ChatController::class,'index'])->name('chat.index');
+Route::get('chat-conver/{user}',[ChatController::class,'chat_convers'])->name('chat.convers');
 
 //Sobre nosotros
 
 Route::get('sobre-nosotros',[SobrenosotrosController::class,'index'])->name('sobrenosotros.index');
 
+//Mis compras
+Route::get('my_shopping',[MarketplaceController::class,'compras'])->name('marketplace_compras.index');
 
 

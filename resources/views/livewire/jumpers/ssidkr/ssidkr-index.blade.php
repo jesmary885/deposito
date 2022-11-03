@@ -1,4 +1,4 @@
-<div x-data="{jumper_2: @entangle('jumper_2'),points_user: @entangle('points_user'), is_high: @entangle('is_high'),is_basic: @entangle('is_basic')}">
+<div x-data="{jumper_2: @entangle('jumper_2'),points_user: @entangle('points_user'), is_high: @entangle('is_high'),is_basic: @entangle('is_basic'), calc_link: @entangle('calc_link')}">
     <div class="card">
         <div class="card-header row flex justify-between">
             <div class="flex-grow-1">
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        @if ($jumper_complete != 0 && $jumper != "" && $calc_link == 0)
+        @if ($jumper_complete != 0 && $jumper != "" && $calc_link == 1)
             <div class="card-body mt-0">
 
                 <div class="flex flex-row justify-center">
@@ -23,7 +23,10 @@
                     </div>
         @endif
                     <div :class="{'hidden': (jumper_2 == '')}"> {{--falta ocultarlo tambien cuando calc_link sea igual a 0--}}
-                        <button class="btn btn-sm btn-outline-secondary ml-2 mb-3 " title="{{__('messages.copiar_portapapeles')}}" id="button_copy"><i class="	far fa-clipboard"></i></button>    
+                        <div :class="{'hidden': (calc_link == 0)}">
+                            <button class="btn btn-sm btn-outline-secondary ml-2 mb-3 " title="{{__('messages.copiar_portapapeles')}}" id="button_copy"><i class="	far fa-clipboard"></i></button>    
+                        </div>
+                        
                     </div>
         @if ($jumper_complete != 0 && $jumper != "")
 
@@ -37,28 +40,29 @@
                             <th class="text-center">{{__('messages.Subido')}}</th>
                             <th class="text-center" :class="{'hidden': (is_high == 'no')}">PID</th>
                             <th colspan="2" class="text-center">{{__('messages.Puntuación')}}</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="text-center">{{$jumper->jumperType->name}}</td>
                             <td class="text-center">{{$jumper->psid}}</td>
+                            <td class="text-center" :class="{'hidden': (is_high == 'no')}"> {{$calculo_high}}</td>
                             <td class="text-center" :class="{'hidden': (is_basic == 'no')}">{{$jumper->basic}}</td>
                             <td class="text-center">{{$jumper->created_at->format('d/m/Y')}}</td>
                             <td class="text-center" :class="{'hidden': (is_high == 'no')}"> 
-                                <div class="row flex justify-between">
+                                <div class=" row flex justify-between">
                                     <div class="flex-grow-1">
-                                        <input type="text" wire:model="pid_new" class="form-control" id="formGroupExampleInput" placeholder="{{__('messages.ingrese_pdi')}}"></td>
+                                        <input type="text" wire:model="pid_new" class="form-control" id="formGroupExampleInput" placeholder="{{__('messages.ingrese_pdi')}}">
                                     </div>
                                     <div>
-                                    <button
-                                        class="py-2 px-3 text-md font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
-                                        wire:click="calculo_high('{{$jumper->id}}')">
-                                        <i class="font-semibold fas fa-share-square"></i>
-                                </button>
+                                        <button
+                                            class="btn btn-md btn-outline-secondary" 
+                                            wire:click="calculo_high('{{$jumper->id}}')">
+                                            <i class="font-semibold fas fa-sync"></i>
+                                        </button>
                                     </div>
                                 </div>
+                            </td>
                                 
                             <td width="10px">
                                 <button

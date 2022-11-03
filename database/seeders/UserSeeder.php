@@ -23,7 +23,6 @@ class UserSeeder extends Seeder
             'lastname' => 'Admin',
             'phone' => 'xxxxxxxxxx',
             'telegram' => 'xxxxxxx',
-            'reputation' => '10',
             'balance' => '10',
             'status' => 'activo'
         ])->assignRole('Administrador');

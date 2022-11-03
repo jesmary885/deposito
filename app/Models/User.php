@@ -68,9 +68,20 @@ class User extends Authenticatable
         return $this->hasMany(Link::class);
     }
 
+    public function Marketplaces(){
+        return $this->hasMany(Marketplace::class);
+    }
+
+    public function SaleMarketplaces(){
+        return $this->hasMany(saleMarketplace::class);
+    }
+
     //Relacion uno a muchos
     public function comments(){
         return $this->hasMany(Comments::class);
+    }
+    public function comments_markets(){
+        return $this->hasMany(CommentsMarket::class);
     }
 
     //Relacion muchos a muchos

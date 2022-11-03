@@ -3,11 +3,8 @@
 
 <div class="flex justify-between">
     
-    <h1 class="text-lg ml-2"><i class="fas fa-cog"></i> Sobre nosotros</h1>
+    <h1 class="text-lg ml-2"><i class="fas fa-cart-arrow-down"></i> {{__('messages.mis_compras')}}</h1>
 
-    <div class="justify-end">
-       {{-- @livewire('marketplace.marketplace-create') --}}
-    </div>
 </div>
 
 @stop
@@ -19,7 +16,7 @@
         </div>
     @endif
     
-    @livewire('sobre-nosotros.sobre-nosotros-index.blade') 
+    @livewire('marketplace.marketplace-shopping') 
 @stop
 
 @section('css')

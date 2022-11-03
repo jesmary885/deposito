@@ -51,6 +51,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'marketplace.index',
         'description' => 'Ver Cints'])->syncRoles([$role1,$role2]);
 
+        Permission::create(['name' => 'marketplace_compras.index',
+        'description' => 'Ver Compras'])->syncRoles([$role1,$role2]);
+
         Permission::create(['name' => 'sobrenosotros.index',
         'description' => 'Ver Cints'])->syncRoles([$role1,$role2]);
     }
