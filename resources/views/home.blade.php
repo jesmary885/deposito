@@ -19,33 +19,6 @@
   </div>
 
   <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box flex">
-      <span class="info-box-icon bg-danger elevation-1 flex">
-        <i class="far fa-comment">
-        </i>
-      </span>
-      <div class="info-box-content flex">
-        <span class="info-box-text">{{__('messages.Chat')}}</span>
-        <span class="info-box-number"> </span>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box flex">
-      <span class="info-box-icon bg-info elevation-1 flex">
-        <i class="fas fa-cog">
-
-        </i>
-      </span>
-      <div class="info-box-content flex">
-        <span class="info-box-text">{{__('messages.Herramientas')}}</span>
-        <span class="info-box-number"></span>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-sm-6 col-md-3">
     <a href="{{route('marketplace_compras.index')}}">
       <div class="info-box flex">
         <span class="info-box-icon bg-warning elevation-1 flex">
@@ -59,6 +32,38 @@
       </div>
     </a>
   </div>
+
+  <div class="col-12 col-sm-6 col-md-3">
+    <a href="{{route('contacts.index')}}">
+    <div class="info-box flex">
+      <span class="info-box-icon bg-info elevation-1 flex">
+        <i class="far fa-address-book">
+        </i>
+      </span>
+      <div class="info-box-content flex">
+        <span class="info-box-text">{{__('messages.Mis_contactos')}}</span>
+        <span class="info-box-number"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-md-3">
+  <a href="{{route('chat.index')}}">
+    <div class="info-box flex">
+      <span class="info-box-icon bg-danger elevation-1 flex">
+        <i class="far fa-comment">
+        </i>
+      </span>
+      <div class="info-box-content flex">
+        <span class="info-box-text">{{__('messages.Chat')}}</span>
+        <span class="info-box-number"> </span>
+      </div>
+    </div>
+  </div>
+
+ 
+
+
 
 </div>
 

@@ -6,6 +6,7 @@ return [
     'es' => 'Español',
     'en' => 'Inglés',
     'Complete_todos_los_campos_y_presiona_Guardar' => 'Complete todos los campos y presiona guardar',
+    'Complete_todos_los_campos_y_presiona_Guardar_contactos' => 'Ingrese el nombre que desee colocarle al usuario y el username que lo identifica en nuestros registros',
     'acciones' => 'Acciones',
     'Cerrar' => 'Cerrar',
     'Guardar' => 'Guardar',
@@ -25,6 +26,7 @@ return [
     'ingrese_pdi' => 'Ingrese su pid',
     'mis_compras' => 'Mis compras',
     'busqueda_marketplace' => 'Ingrese el nombre del producto o servicio a buscar',
+    'busqueda_contacto' => 'Ingrese el nombre del contacto a buscar',
     'nombre' => 'Nombre',
     'descripcion' => 'Descripción',
     'precio' => 'Precio',
@@ -36,4 +38,7 @@ return [
     'estado' => 'Estado',
     'categoria' => 'Categoria',
     'precio' => 'Precio',
+    'Mis_contactos' => 'Mis contactos',
+    'Agregar_contacto' => 'Agregar contacto',
+    'username' => 'Username',
 ];

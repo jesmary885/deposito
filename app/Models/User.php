@@ -83,10 +83,19 @@ class User extends Authenticatable
     public function comments_markets(){
         return $this->hasMany(CommentsMarket::class);
     }
+    public function contacts(){
+        return $this->hasMany(Contact::class);
+    }
+    public function messagess(){
+        return $this->hasMany(Message::class);
+    }
 
     //Relacion muchos a muchos
     public function linkPoints(){
         return $this->belongsToMany(Link::class)->withPivot('point');
+    }
+    public function chats(){
+        return $this->belongsToMany(Chat::class)->withPivot('color','active')->withTimestamps();
     }
 
 }

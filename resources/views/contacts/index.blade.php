@@ -1,14 +1,16 @@
 @extends('adminlte::page')
 @section('content_header')
 
-<h1 class="text-lg ml-2"><i class="fas fa-th-list"></i> Chat </h1>
+<div class="flex justify-between">
+    
+    <h1 class="text-lg ml-2"><i class="far fa-address-book"></i> Mis contactos</h1>
+
+</div> 
 
 @stop
 
 @section('content')
-@livewire('chat.chat-component') 
-
-
+    @livewire('contacts.contacts-index') 
 @stop
 
 @section('css')
