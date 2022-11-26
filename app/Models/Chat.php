@@ -30,7 +30,7 @@ class Chat extends Model
                 $user = $this->users->where('id', '!=', auth()->id())->first();
                 $contact = auth()->user()->contacts()->where('contact_id',$user->id)->first();
 
-                return $contact ? $contact->name : $user->email;
+                return $contact ? $contact->name : $user->username;
             }
         );
     }
@@ -46,6 +46,24 @@ class Chat extends Model
                 $user = $this->users->where('id', '!=', auth()->id())->first(); 
                 return $user->profile_photo_url;
 
+            });        
+    }
+
+    public function unreadMessages(): Attribute{
+        return new Attribute(
+            get: function(){
+                return $this->messages->where('user_id','!=',auth()->id())
+                    ->where('is_read',false)
+                    ->count();
+            }
+        );
+    }
+
+    public function lastMessageAt() : Attribute
+    {
+        return new Attribute(
+            get: function(){
+                return $this->messages->last()->created_at;
             });        
     }
 

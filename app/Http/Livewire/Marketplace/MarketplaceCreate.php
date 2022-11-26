@@ -10,13 +10,14 @@ use Livewire\Component;
 class MarketplaceCreate extends Component
 {
     public $isopen = false;
-    public $name,$price,$description,$categories,$category_id="",$estado;
+    public $name,$price,$description,$categories,$category_id="",$estado,$cant;
 
     protected $rules = [
         'name' => 'required',
         'price' => 'required',
         'description' => 'required',
         'category_id' => 'required',
+        'cant' => 'required',
     ];
 
     public function mount(){
@@ -49,10 +50,11 @@ class MarketplaceCreate extends Component
         $marketplace->description = $this->description;
         $marketplace->status = $this->estado;
         $marketplace->user_id = $user;
+        $marketplace->cant = $this->cant;
         $marketplace->category_marketplace_id = $this->category_id;
         $marketplace->save();
 
-        $this->reset(['isopen']);
+        $this->reset(['isopen','name','price','description','estado','cant','category_id']);
         $this->emitTo('marketplace.marketplace-index','render');
     }
 

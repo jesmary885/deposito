@@ -41,4 +41,5 @@ return [
     'Mis_contactos' => 'Mis contactos',
     'Agregar_contacto' => 'Agregar contacto',
     'username' => 'Username',
+    'cantidad' => 'Cantidad',
 ];

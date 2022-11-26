@@ -28,6 +28,10 @@
                                 <label for="formGroupExampleInput2">{{__('messages.precio')}}</label>
                                 <input type="text" wire:model="price" class="form-control" id="formGroupExampleInput2">
                             </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput2">{{__('messages.cantidad')}}</label>
+                                <input type="number" min="0" wire:model="cant" class="form-control" id="formGroupExampleInput2">
+                            </div>
                              <div class="form-group">
                                 <label for="formGroupExampleInput2">{{__('messages.estado')}}</label>
                                 <select id="estado" wire:model.lazy="estado" class="form-control" name="estado">

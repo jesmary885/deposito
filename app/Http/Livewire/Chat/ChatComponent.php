@@ -5,16 +5,34 @@ namespace App\Http\Livewire\Chat;
 use App\Models\Chat;
 use App\Models\Contact;
 use Livewire\Component;
+use Illuminate\Support\Facades\Notification;
 
 class ChatComponent extends Component
 {
     public $search;
-    public $contactChat,$chat, $bodyMessage;
-
-    //propiedad computada
+    public $contactChat,$chat, $bodyMessage, $chat_id,$users;
 
     protected $listeners = ['render' => 'render','open_chat_contact' => 'open_chat_contact'];
 
+    public function mount(){
+        $this->users = collect();
+    }
+    
+
+    //Oyentes
+
+    public function getListeners()
+    {
+        $user_id = auth()->user()->id;
+        return [
+            "echo-notification:App.Models.User.{$user_id},notification" => 'render',
+            "echo-presence:chat.1,here" => 'chatHere',
+            "echo-presence:chat.1,joining" => 'chatJoining',
+            "echo-presence:chat.1,leaving" => 'chatLeaving',
+        ];
+    }
+
+    //propiedad computada
     public function getContactsProperty(){
         return Contact::where('user_id',auth()->id())
             ->when($this->search, function($query){
@@ -29,7 +47,7 @@ class ChatComponent extends Component
     }
 
     public function getChatsProperty(){
-        return auth()->user()->chats()->get();
+        return auth()->user()->chats()->get()->sortByDesc('last_message_at');
     }
 
     public function getMessagesProperty(){
@@ -37,8 +55,12 @@ class ChatComponent extends Component
         //es igual a Message::where('chat_id', $this->chat->id)->get()
     }
 
+    public function getUsersNotificationsProperty(){
+        return $this->chat ? $this->chat->users->where('id','!=', auth()->id()) : collect();
+        //es igual a Message::where('chat_id', $this->chat->id)->get()
+    }
+
     public function open_chat_contact(Contact $contact){
-        //dd($contact);
         $chat= auth()->user()->chats()
             ->whereHas('users',function($query) use ($contact){
                 $query->where('user_id', $contact->contact_id);
@@ -48,18 +70,56 @@ class ChatComponent extends Component
 
         if($chat){
             $this->chat = $chat;
+            $this->chat_id = $this->chat->id;
             $this->reset('bodyMessage','contactChat','search');
         }
         else{
             $this->contactChat = $contact;
             $this->reset('chat','bodyMessage','search');
-            
         }
+
+        
+    }
+
+    public function getActiveProperty(){
+        return $this->users->contains($this->users_notifications->first()->id);
+
+    }
+
+    //Ciclo de vida
+
+    public function updatedBodyMessage($value){
+        if($value){
+            Notification::send($this->users_notifications, new \App\Notifications\UserTyping($this->chat->id));
+        }
+
+    }
+
+    //Métodos
+
+    //evento todos los usuarios en la sala de chat
+    public function chatHere($users){
+        $this->users = collect($users)->pluck('id');
+
+    }
+    //evento cuando se sume un nuevo usuario
+    public function chatJoining($user){
+        $this->users->push($user['id']);
+
+    }
+    //evento que retorna los usuarios que se han desconectado
+    public function chatLeaving($user){
+        $this->users = $this->users->filter(function($id) use ($user){
+            return $id != $user['id'];
+        });
     }
 
     public function open_chat(Chat $chat){
         $this->chat = $chat;
+        $this->chat_id = $this->chat->id;
         $this->reset('bodyMessage','contactChat');
+
+       
     }
 
     public function sendMessage(){
@@ -69,6 +129,7 @@ class ChatComponent extends Component
 
         if(!$this->chat){
             $this->chat = Chat::create();
+            $this->chat_id = $this->chat->id;
             $this->chat->users()->attach([auth()->user()->id,$this->contactChat->contact_id]);
         }
 
@@ -78,11 +139,24 @@ class ChatComponent extends Component
 
         ]);
 
+        Notification::send($this->users_notifications, new \App\Notifications\NewMessage());
+
         $this->reset('bodyMessage','contactChat');        
     }
 
     public function render()
     {
+        if($this->chat){
+            $this->chat->messages()->where('user_id','!=',auth()->id())
+            ->where('is_read',false)
+            ->update([
+                'is_read' => true,
+            ]);
+    
+            //Notification::send($this->users_notifications, new \App\Notifications\NewMessage());
+
+            $this->emit('scrollIntoView');
+        }
         return view('livewire.chat.chat-component');
     }
 
