@@ -22,9 +22,9 @@ class MarketplaceIndex extends Component
     public function render()
     {
         $marketplaces = Marketplace::where('name', 'LIKE', '%' . $this->search . '%')
-
-        ->latest('id')
-        ->paginate(5);
+            ->where('status','Habilitado')
+            ->latest('id')
+            ->paginate(5);
 
         return view('livewire.marketplace.marketplace-index',compact('marketplaces'));
     }

@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    public function index(){
-        return view('chat.index');
+    public function index($conta='no'){
+       
+        return view('chat.index', compact('conta'));
     }
 
     public function chat_convers($user){

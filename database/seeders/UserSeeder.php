@@ -16,15 +16,53 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
+            'name' => 'Jesus Mata',
+            'email' => 'adminjesus@admin.com',
             'password' => bcrypt('12345678'),
-            'username' => 'Administrador',
-            'lastname' => 'Admin',
-            'phone' => 'xxxxxxxxxx',
-            'telegram' => 'xxxxxxx',
+            'username' => 'Jesus Mata',
             'balance' => '10',
-            'status' => 'activo'
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Administrador');
+
+        User::create([
+            'name' => 'Erik Rojas',
+            'email' => 'adminerik@admin.com',
+            'password' => bcrypt('12345678'),
+            'username' => 'Erik Rojas',
+            'balance' => '10',
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Administrador');
+
+        User::create([
+            'name' => 'Norberto Guerra',
+            'email' => 'adminnorberto@admin.com',
+            'password' => bcrypt('12345678'),
+            'username' => 'Norberto Guerra',
+            'balance' => '10',
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Administrador');
+
+        User::create([
+            'name' => 'Angel Maza',
+            'email' => 'adminangel@admin.com',
+            'password' => bcrypt('12345678'),
+            'username' => 'Angel Maza',
+            'balance' => '10',
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Administrador');
+
+        User::create([
+            'name' => 'Jesmary Carneiro',
+            'email' => 'adminjesmary@admin.com',
+            'password' => bcrypt('12345678'),
+            'username' => 'Jesmary Carneiro',
+            'balance' => '10',
+            'status' => 'activo',
+            'plan' => '30'
         ])->assignRole('Administrador');
 
         User::create([
@@ -32,48 +70,40 @@ class UserSeeder extends Seeder
             'email' => 'usuario1@usuario1.com',
             'password' => bcrypt('12345678'),
             'username' => 'Usuario1',
-            'lastname' => 'User1',
-            'phone' => 'xxxxxxxxxx',
-            'telegram' => 'xxxxxxx',
             'balance' => '10',
-            'status' => 'activo'
-        ])->assignRole('Usuario');
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Encuestador');
 
         User::create([
             'name' => 'Usuario2',
             'email' => 'usuario2@usuario2.com',
             'password' => bcrypt('12345678'),
             'username' => 'Usuario2',
-            'lastname' => 'User2',
-            'phone' => 'xxxxxxxxxx',
-            'telegram' => 'xxxxxxx',
             'balance' => '10',
-            'status' => 'activo'
-        ])->assignRole('Usuario');
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Encuestador');
 
         User::create([
             'name' => 'Usuario3',
             'email' => 'usuario3@usuario3.com',
             'password' => bcrypt('12345678'),
             'username' => 'Usuario3',
-            'lastname' => 'User3',
-            'phone' => 'xxxxxxxxxx',
-            'telegram' => 'xxxxxxx',
             'balance' => '10',
-            'status' => 'activo'
-        ])->assignRole('Usuario');
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Vendedor');
 
         User::create([
             'name' => 'Usuario4',
             'email' => 'usuario4@usuario4.com',
             'password' => bcrypt('12345678'),
             'username' => 'Usuario4',
-            'lastname' => 'User4',
-            'phone' => 'xxxxxxxxxx',
-            'telegram' => 'xxxxxxx',
             'balance' => '10',
-            'status' => 'activo'
-        ])->assignRole('Usuario');
+            'status' => 'activo',
+            'plan' => '30'
+        ])->assignRole('Vendedor');
 
     }
 }

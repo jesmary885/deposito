@@ -42,4 +42,10 @@ return [
     'Agregar_contacto' => 'Add contact',
     'username' => 'Username',
     'cantidad' => 'Amount',
+    'seleccion_opcion' => 'Select an option',
+    'registro_ventas' => 'Purchase record',
+    'contrasena' => 'Password',
+    'ultima_fecha_pago' => 'last_payment_date',
+    'estado' => 'Condition',
+    'balance' => 'Balanace'
 ];

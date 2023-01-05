@@ -59,6 +59,9 @@ class JumperTypeSeeder extends Seeder
             [
                 'name' => 'TOLUNA',
             ],
+            [
+                'name' => 'SIN IDENTIFICAR',
+            ],
         ];
 
         foreach ($jumpers as $jumper) {

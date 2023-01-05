@@ -20,10 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('marketplace_id');
             $table->foreign('marketplace_id')->references('id')->on('marketplaces');
 
-            $table->unsignedBigInteger('payment_method_id');
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
+            $table->unsignedBigInteger('payment_methods_id');
+            $table->foreign('payment_methods_id')->references('id')->on('payment_methods');
 
-            $table->string('bill');
+            //$table->string('bill');
         });
     }
 

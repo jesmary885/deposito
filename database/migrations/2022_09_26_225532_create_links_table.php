@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->string('jumper')->nullable();
             $table->string('notch')->nullable();
+            $table->string('k_detected')->nullable();
+            $table->string('wix_detected')->nullable();
             $table->string('negative_points')->nullable();
             $table->string('positive_points')->nullable();
 

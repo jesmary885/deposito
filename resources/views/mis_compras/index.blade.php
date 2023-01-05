@@ -16,7 +16,7 @@
         </div>
     @endif
     
-    @livewire('marketplace.marketplace-shopping') 
+    @livewire('compras.compras-index') 
 @stop
 
 @section('css')

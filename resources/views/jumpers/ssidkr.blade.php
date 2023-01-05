@@ -16,8 +16,10 @@
             <strong>{{session('info')}}</strong>
         </div>
     @endif
-    
-    @livewire('jumpers.ssidkr.ssidkr-index') 
+
+   
+    @livewire('jumpers.ssidkr.ssidkr-index',['jumper'=>$jumper, 'link_complete' => $link_complete]) 
+  
 @stop
 
 @section('css')

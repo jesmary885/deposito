@@ -5,9 +5,6 @@
     
     <h1 class="text-lg ml-2"><i class="fas fa-cart-arrow-down"></i> {{__('messages.Mercado')}}</h1>
 
-    <div class="justify-end">
-       {{-- @livewire('marketplace.marketplace-create') --}}
-    </div>
 </div>
 
 @stop

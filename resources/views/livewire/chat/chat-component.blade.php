@@ -119,9 +119,9 @@
                         @else
                             {{$contactChat->name}}
                         @endif
-                        <p class="text-gray-600 text-xs" x-show="chat_id == typingChatId">
+                        <!-- <p class="text-gray-600 text-xs" x-show="chat_id == typingChatId" id="online">
                             Escribiendo ...
-                        </p>
+                        </p> -->
                         </p>
                         @if($this->active)
                             <p class="text-green-500  text-xs" x-show="chat_id != typingChatId" id="online">

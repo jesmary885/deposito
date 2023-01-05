@@ -75,7 +75,7 @@ class ContactsCreate extends Component
             }
         }
         else{
-            $this->emit('errorSize', 'El username que ha ingresado no coincide con ninguno de nuestros registros');
+            $this->emit('error', 'El username que ha ingresado no coincide con ninguno de nuestros registros');
         }
     }
 }

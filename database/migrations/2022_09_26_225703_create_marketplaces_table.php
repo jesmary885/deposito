@@ -18,12 +18,11 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
             $table->string('price');
             $table->string('cant');
-            $table->string('points_positive')->nullable(); //reputacion o puntos que ha recibido de los compradores
-            $table->string('points_negative')->nullable();
-            $table->string('points_neutral')->nullable();
+            $table->string('points')->nullable(); //reputacion o puntos que ha recibido de los compradores
+            $table->string('sales')->nullable();
             $table->string('status');
             
             $table->unsignedBigInteger('user_id');

@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-@livewire('chat.chat-component') 
+@livewire('chat.chat-component',['conta' => $conta]) 
 
 
 @stop

@@ -1,9 +1,11 @@
-<div x-data="{jumper_2: @entangle('jumper_2'),points_user: @entangle('points_user'), is_high: @entangle('is_high'),is_basic: @entangle('is_basic'), calc_link: @entangle('calc_link')}">
+<div x-data="{jumper_2: @entangle('jumper_2'),points_user: @entangle('points_user'), is_high: @entangle('is_high'),is_basic: @entangle('is_basic'), calc_link: @entangle('calc_link'), pid: @entangle('pid_new'), psid: @entangle('psid_register'), jumper_detect: @entangle('jumper_detect'), no_detect: @entangle('no_detect'), k_detect: @entangle('k_detect')}">
     <div class="card">
-        <div class="card-header row flex justify-between">
+        <div class="card-header flex justify-between">
             <div class="flex-grow-1">
-                <input wire:model="search" placeholder="" class="form-control">
+                <input wire:model="search" type="search" placeholder="" class="form-control">
             </div>
+
+         
 
             <div class="ml-2 mr-2 mt-1">
                 @livewire('jumpers.ssidkr.ssidkr-create')
@@ -14,21 +16,50 @@
             </div>
         </div>
 
+        <div wire:loading.delay>
+            <div class="loader"></div>
+        </div>
+
+        <div class="flex justify-between">
+            <div class="px-4" :class="{'hidden': (pid != 0)}">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:darkred;">×</font></font></button>
+                    <h5><i class="icon fas fa-info"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">¡Alerta!</font></font></h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    Aún no has registrado tu PID</font><font style="vertical-align: inherit;"> ,haz clic <a class="hover:font-bold" href="{{route('registro.pid')}}"> aquí</a> para registrarlo
+                    </font></font>
+                </div>
+         
+            </div>
+
+            <div class="px-4" :class="{'hidden': (psid != 0)}">
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color:darkred;">×</font></font></button>
+                        <h5><i class="icon fas fa-info"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">¡Alerta!</font></font></h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Aún no has registrado tu PSID</font><font style="vertical-align: inherit;"> ,haz clic <a class="hover:text-white" href="{{route('registro.psid')}}"> aquí</a> para registrarlo
+                        
+                        </font></font>
+                    </div>
+                </div>
+
+           
+        </div>
+
+       
         @if ($jumper_complete != 0 && $jumper != "" && $calc_link == 1)
             <div class="card-body mt-0">
 
                 <div class="flex flex-row justify-center">
                     <div>
-                        <span class="text-blue-400 text-lg ml-4 mb-2" id="jumper_copy">{{$jumper_complete}}</span>
+                        <p class="text-blue-400 text-lg ml-4 mb-2 " id="jumper_copy">{{$jumper_complete}}</p>
                     </div>
         @endif
-                    <div :class="{'hidden': (jumper_2 == '')}"> {{--falta ocultarlo tambien cuando calc_link sea igual a 0--}}
+                    <div :class="{'hidden': (jumper_2 == '')}">
                         <div :class="{'hidden': (calc_link == 0)}">
-                            <button class="btn btn-sm btn-outline-secondary ml-2 mb-3 " title="{{__('messages.copiar_portapapeles')}}" id="button_copy"><i class="	far fa-clipboard"></i></button>    
+                            <button class="btn btn-sm btn-outline-secondary ml-2 mb-3" title="{{__('messages.copiar_portapapeles')}}" id="button_copy">Copiar</button>    
                         </div>
                         
                     </div>
-        @if ($jumper_complete != 0 && $jumper != "")
+        @if ($jumper_complete != 0 || $jumper != "")
 
                 </div>
             <table class="table table-striped table-responsive-md table-responsive-sm">
@@ -39,6 +70,7 @@
                             <th class="text-center">{{$jumper->jumperType->name}}</th>
                             <th class="text-center">{{__('messages.Subido')}}</th>
                             <th class="text-center" :class="{'hidden': (is_high == 'no')}">PID</th>
+                            <th class="text-center">Historial</th>
                             <th colspan="2" class="text-center">{{__('messages.Puntuación')}}</th>
                         </tr>
                     </thead>
@@ -46,11 +78,13 @@
                         <tr>
                             <td class="text-center">{{$jumper->jumperType->name}}</td>
                             <td class="text-center">{{$jumper->psid}}</td>
+                            @if($jumper->jumper_type_id == 15) <td class="text-center"> - </td>@endif
                             <td class="text-center" :class="{'hidden': (is_high == 'no')}"> {{$calculo_high}}</td>
                             <td class="text-center" :class="{'hidden': (is_basic == 'no')}">{{$jumper->basic}}</td>
                             <td class="text-center">{{$jumper->created_at->format('d/m/Y')}}</td>
                             <td class="text-center" :class="{'hidden': (is_high == 'no')}"> 
                                 <div class=" row flex justify-between">
+                            
                                     <div class="flex-grow-1">
                                         <input type="text" wire:model="pid_new" class="form-control" id="formGroupExampleInput" placeholder="{{__('messages.ingrese_pdi')}}">
                                     </div>
@@ -59,9 +93,14 @@
                                             class="btn btn-md btn-outline-secondary" 
                                             wire:click="calculo_high('{{$jumper->id}}')">
                                             <i class="font-semibold fas fa-sync"></i>
+                                    
                                         </button>
                                     </div>
                                 </div>
+                            </td>
+
+                            <td width="10px">
+                                @livewire('jumpers.history', ['jumper' => $jumper])
                             </td>
                                 
                             <td width="10px">
@@ -87,30 +126,49 @@
                 </table>
 
                 <div class="grid md:grid-cols-3 gap-4 mt-4 card container">
-                    <aside class="md:col-span-1">
-                        <div class=" mt-8 ">
-                            <textarea wire:model="comentario" class="form-control" id="formGroupExampleInput" name="comentario" cols="80" rows="2" placeholder="{{__('messages.comparte_experiencia')}}"></textarea>
+                    <aside class="md:col-span-1 p-2">
+
+                        <div class="info-box mb-3 bg-info" :class="{'hidden': (jumper_detect == '0')}">
+                            <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+                            <div class="info-box-content">
+                            <span class="info-box-text">Tipo {{$jumper->jumperType->name}}</span>
+                            <span class="info-box-number">Dominio: {{$jumper_detect}}</span>
+                            </div>
                         </div>
 
-                        <div class="mt-2 mb-2">
-                        <button
-                            class="btn btn-primary" 
-                            wire:click="comentar('{{$jumper->id}}')"
-                            title="{{__('messages.Guardar')}}">
-                            {{__('messages.Guardar')}}
-                        </button>
-
+                        <div class="info-box mb-3 bg-success" :class="{'hidden': (k_detect == '0')}">
+                            <span class="info-box-icon"><i class="far fa-heart"></i></span>
+                            <div class="info-box-content">
+                            <span class="info-box-text">Detectada una posible</span>
+                            <span class="info-box-number">{{$k_detect}}</span>
+                            </div>
                         </div>
+
                     </aside>
 
-                    <div class="md:col-span-2 mt-8">
+                    <div class="md:col-span-2">
+                        <div class="flex justify-between">
+                            <div class=" mt-2 mr-2 ml-2 flex-1 ">
+                                <textarea wire:model.defer="comentario" class="form-control" id="formGroupExampleInput" name="comentario" cols="80" rows="2" placeholder="{{__('messages.comparte_experiencia')}}"></textarea>
+                            </div>
+
+                            <div class="mt-3 mb-2">
+                            <button
+                                class="btn btn-primary" 
+                                wire:click="comentar('{{$jumper->id}}')"
+                                title="{{__('messages.Guardar')}}">
+                                {{__('messages.Guardar')}}
+                            </button>
+
+                            </div>
+                        </div>
                         <div class="card container ml-2">
                             @if ($comments->count())
                                 @foreach ($comments as $comment)
                                     <div class="flex justify-between card-body">
                                         <div class="">
                                             <p class="text-gray-200 text-lg font-semibold">{{$comment->user->name}}</p>
-                                            <p class="text-gray-200 text-sm ">{{$comment->created_at->format('d/m/Y')}}</p>
+                                            <p class="text-gray-200 text-sm ">{{$comment->created_at->format('d/m/Y h:i')}}</p>
                                         </div>
                                         <div class="flex-1 ml-4 text-justify">
                                             <p class="text-white font-semibold">{{$comment->comment}}</p>
@@ -135,28 +193,74 @@
             </div>
         @else
             <div class="card-body">
-               
+
+                <div class="m-2 mb-2">
+                    <div class="info-box mb-3 bg-info" :class="{'hidden': (no_detect == '0')}">
+                        <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">No se encuentra en nuestros registros</span>
+                            <span class="info-box-number">Si deseas registrarla, pega en nuestro buscador el link de la encuesta</span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="info-box mb-3 bg-info" :class="{'hidden': (jumper_detect == '0')}">
+                    <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+                        <div class="info-box-content">
+                            @if($jumper)
+                            <span class="info-box-text">Tipo {{$jumper->jumperType->name}}</span>
+                            @else
+                            <span class="info-box-text">Tipo No identificado</span>
+                            @endif
+                            <span class="info-box-number">Dominio: {{$jumper_detect}}</span>
+                        </div>
+                </div>
+
+                <div class="info-box mb-3 bg-success" :class="{'hidden': (k_detect == '0')}">
+                    <span class="info-box-icon"><i class="far fa-heart"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Detectada una posible</span>
+                            <span class="info-box-number">{{$k_detect}}</span>
+                        </div>
+                </div>
             </div>
         @endif
 
-    </div>
-    <script>
+       
         
+
+    </div>
+
+    <style>
+   
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('loading/1480.gif') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .6;
+        }
+    </style>
+
+    <script>
             var boton = document.getElementById("button_copy");
             boton.addEventListener("click", copiarAlPortapapeles, false);
             function copiarAlPortapapeles() {
-                var jumper_copy = document.getElementById("jumper_copy");
-                var inputFalso = document.createElement("input");
-                inputFalso.setAttribute("value", jumper_copy.innerHTML);
-                document.body.appendChild(inputFalso);
-                inputFalso.select();
-                document.execCommand("copy");
-                document.body.removeChild(inputFalso);
+                var codigoACopiar = document.getElementById('jumper_copy');
+                var seleccion = document.createRange();
+                seleccion.selectNodeContents(codigoACopiar);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(seleccion);
+                var res = document.execCommand('copy');
+                window.getSelection().removeRange(seleccion);
             }
-        
-        
     </script>
 </div>
+
 
 
 

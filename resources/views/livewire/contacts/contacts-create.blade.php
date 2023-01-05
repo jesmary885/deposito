@@ -8,8 +8,7 @@
     </button>
 
     @if ($isopen)
-        <div class="modal d-block" tabindex="-1" role="dialog" style="overflow-y: auto; display: block;"
-            wire:click.self="$set('isopen', false)">
+        <div class="modal d-block" tabindex="-1" role="dialog" style="overflow-y: auto; display: block;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -23,10 +22,12 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput">{{__('messages.nombre')}}</label>
                                 <input type="text" wire:model="name" class="form-control" id="formGroupExampleInput">
+                                <x-input-error for="name" />
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">{{__('messages.username')}}</label>
                                 <input type="text" wire:model="username" class="form-control" id="formGroupExampleInput2">
+                                <x-input-error for="username" />
                             </div>
                             
                     </div>

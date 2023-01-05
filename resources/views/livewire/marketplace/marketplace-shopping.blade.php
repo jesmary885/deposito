@@ -1,6 +1,6 @@
 <div>
     <div class="container py-8">
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 gap-6">
             <div class="mr-2 w-full h-576">
          
 
@@ -9,9 +9,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <p>Descripción</p>
+                    <p class="text-lg font-bold text-gray-400">Descripción</p>
 
-                    <div class="mt-2">
+                    <div class="mt-2 text-justify ml-2">
                         <h1>{{$marketplace_select->description}}</h1>
                     </div>
 
@@ -23,75 +23,72 @@
             <div>
                 <div class=" bg-transparent rounded shadow-inner p-3 mb-2">
                     <div class="mb-2">
-                        <h1>{{$marketplace_select->name}}</h1>
+                        <h1 class="text-lg font-bold text-gray-400">{{$marketplace_select->name}}</h1>
                     </div>
 
-                    <div class="flex">
+                    <div class=" ml-2 flex">
                         
                         <div class="flex mt-1">
-                            <p class="text-gray-700 text-lg mx-1"> <i class="fas fa-star text-md text-yellow-400"></i></p>
-                            <p class="text-gray-700 text-lg mx-1"> <i class="fas fa-star text-md text-yellow-400"></i></p>
-                            <p class="text-gray-700 text-lg mx-1"> <i class="fas fa-star text-md text-yellow-400"></i></p>
-                            <p class="text-gray-700 text-lg mx-1"> <i class="fas fa-star text-md text-yellow-400"></i></p>
-                            <p class="text-gray-700 text-lg mx-1"> <i class="fas fa-star text-md text-gray-400"></i></p>
-                        </div>
+                            <i class="{{$this->reputation($marketplace_select)[1]}}"></i> <i class="{{$this->reputation($marketplace_select)[2]}}"></i> <i class="{{$this->reputation($marketplace_select)[3]}}"></i> <i class="{{$this->reputation($marketplace_select)[4]}}"></i> <i class="{{$this->reputation($marketplace_select)[5]}}"></i>
 
-                        <p class="mt-2">
-                            (12) referencias
-                        </p>
-                    </div>
-
-
-                    
-                    <p class="mt-2">{{__('messages.precio')}} : $ {{$marketplace_select->price}} </p>
-                    
-
-                    <hr class="m-2">
-
-                 <div>
-                    <p>Información sobre el vendedor</p>
-
-                    <p class="mt-2">{{__('messages.username')}} : {{$marketplace_select->user->username}}</p>
-
-                    <div>
-                        <div class="flex">
-                            <div class="bg-red-100 w-12 h-3 mt-2"></div>
-                            <div class="ml-1 bg-yellow-100 w-12 h-3 mt-2"></div>
-                            <div class="ml-1 bg-green-600 w-12 h-3 mt-2"></div>
-                            <div class="ml-2">
-                                (58) Referencias
+                            <div class="text-sm text-gray-300 mt-3 ml-2">
+                                @if ($porcentaje_marketplace)
+                               ( {{round($porcentaje_marketplace,2)}} % de puntuación positiva por parte de los compradores )
+                               @else
+                                Este producto aún no tiene ventas registradas
+                                @endif
                             </div>
-
-                         
-
-                        </div>
-
-                        <div class="flex">
-                            <div>
-
-                            </div>
-                            <div>
-                                
-                            </div>
-
                         </div>
 
                     </div>
-                    
-                 </div>
 
+
+                    <div class="flex w-full">
+                        <p class="mt-3 ml-2 mb-6 font-bold text-xl text-blue-500">{{__('messages.precio')}} : $ {{$marketplace_select->price}} </p>
+                    </div>
                     
+                    
+
+                <hr class="m-2 text-gray-200">
+
+                <div class=" mt-6 ">
+                    <p class=" font-bold text-lg text-gray-400">Información sobre el vendedor</p>
+
+                    <p class="mt-2 text-md font-bold mb-2 ml-2 text-gray-100">{{__('messages.username')}} : {{$marketplace_select->user->username}}</p>
+
+                    <div class=" ml-2 flex">
+                        
+                        <div class="flex">
+                            <i class="{{$this->reputation_vendedor($marketplace_select->user_id)[1]}}"></i> <i class="{{$this->reputation_vendedor($marketplace_select->user_id)[2]}}"></i> <i class="{{$this->reputation_vendedor($marketplace_select->user_id)[3]}}"></i> <i class="{{$this->reputation_vendedor($marketplace_select->user_id)[4]}}"></i> <i class="{{$this->reputation_vendedor($marketplace_select->user_id)[5]}}"></i>
+
+                            <div class="text-sm text-gray-300 mt-3 ml-2">
+                                @if($porcentaje_vendedor)
+                               ( {{round($porcentaje_vendedor,2)}} % de puntuación positiva por parte de los compradores )
+                               @else
+                               Este usuario aún no tiene ventas registradas
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
 
                     <div class=" mt-6 flex">
 
                         <div class="mr-2 ">
 
-                        <a class="btn btn-primary btn-sm font-semibold" href="{{route('chat.convers',['user'=>$marketplace_select->user->id])}}">Contactar con el vendedor</a>
+                            <button
+                                class="btn btn-primary btn-sm" 
+                                wire:click="contact()"
+                                >
+                                Contactar con el vendedor
+                            </button>
 
                         </div>
                         <div>
+                        @livewire('marketplace.marketplace-shopping-finish', ['marketplace' => $marketplace_select])
 
-                        <a class="btn btn-primary btn-sm font-semibold" href="{{route('chat.convers',['user'=>$marketplace_select->user->id])}}">Comprar ahora</a>
 
                         </div>
 

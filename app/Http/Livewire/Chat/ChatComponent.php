@@ -10,12 +10,41 @@ use Illuminate\Support\Facades\Notification;
 class ChatComponent extends Component
 {
     public $search;
-    public $contactChat,$chat, $bodyMessage, $chat_id,$users;
+    public $contactChat,$chat, $bodyMessage, $chat_id,$users,$vista = "chat", $conta;
 
     protected $listeners = ['render' => 'render','open_chat_contact' => 'open_chat_contact'];
 
     public function mount(){
+      //  dd($this->conta);
+      
+        if($this->conta != 'no'){
+            $contc = Contact::where('user_id',auth()->id())
+            ->where('contact_id',$this->conta)
+            ->first();
+
+            $contact_sele= $this->conta;
+
+            $chat= auth()->user()->chats()
+            ->whereHas('users',function($query) use ($contact_sele){
+                $query->where('user_id', $contact_sele);
+            })
+            ->has('users',2)
+            ->first();
+
+        if($chat){
+            $this->chat = $chat;
+   
+            $this->chat_id = $this->chat->id;
+            $this->reset('bodyMessage','contactChat','search');
+        }
+        else{
+            $this->contactChat = $contc;
+            $this->reset('chat','bodyMessage','search');
+        }
+
+        }
         $this->users = collect();
+       
     }
     
 
@@ -61,6 +90,7 @@ class ChatComponent extends Component
     }
 
     public function open_chat_contact(Contact $contact){
+ 
         $chat= auth()->user()->chats()
             ->whereHas('users',function($query) use ($contact){
                 $query->where('user_id', $contact->contact_id);
@@ -78,19 +108,39 @@ class ChatComponent extends Component
             $this->reset('chat','bodyMessage','search');
         }
 
-        
     }
 
     public function getActiveProperty(){
-        return $this->users->contains($this->users_notifications->first()->id);
+
+        if (empty($this->users_notifications->first()->id)){
+
+            return collect();
+
+        }else{
+
+            return $this->users->contains($this->users_notifications->first()->id);
+
+        }
+      
+       // return $this->users->contains($this->users_notifications->first()->id);
+     
 
     }
 
     //Ciclo de vida
 
     public function updatedBodyMessage($value){
-        if($value){
-            Notification::send($this->users_notifications, new \App\Notifications\UserTyping($this->chat->id));
+        if (empty($this->users_notifications->first()->id)){
+
+            return collect();
+
+        }
+
+        else{
+
+            if($value){
+                Notification::send($this->users_notifications, new \App\Notifications\UserTyping($this->chat->id));
+            }
         }
 
     }
@@ -146,14 +196,13 @@ class ChatComponent extends Component
 
     public function render()
     {
+
         if($this->chat){
             $this->chat->messages()->where('user_id','!=',auth()->id())
             ->where('is_read',false)
             ->update([
                 'is_read' => true,
             ]);
-    
-            //Notification::send($this->users_notifications, new \App\Notifications\NewMessage());
 
             $this->emit('scrollIntoView');
         }

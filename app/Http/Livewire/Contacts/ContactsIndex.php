@@ -42,4 +42,11 @@ class ContactsIndex extends Component
         $contact_destroy->delete();
      $this->resetPage();
     }
+
+    public function contact($contact){
+
+        $this->emit('render');
+        return redirect()->to('/chat-conver/'.$contact);
+
+    }
 }

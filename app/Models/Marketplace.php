@@ -29,4 +29,9 @@ class Marketplace extends Model
         return $this->hasMany(CommentsMarket::class);
     }
 
+    //Relacion mucho a muchos
+    public function payment_methods(){
+        return $this->belongsToMany(PaymentMethods::class);
+    }
+
 }

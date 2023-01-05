@@ -52,7 +52,7 @@
                         <td width="10px">
                             <button
                                 class="btn btn-success btn-sm mr-2" 
-                                wire:click="delete('{{$contact->id}}')">
+                                wire:click="contact('{{$contact->user->id}}')">
                                 <i class="fas fa-comment"></i>
                             </button>
                         </td>

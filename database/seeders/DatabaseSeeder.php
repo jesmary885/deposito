@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(JumperTypeSeeder::class);
         $this->call(IdiomaSeeder::class);
         $this->call(CategoryMarketplaceSeeder::class);
+        $this->call(PaymentMethodsSeeder::class);
     }
 }

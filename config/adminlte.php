@@ -65,7 +65,7 @@ return [
 
     'logo' => null,
     'logo_img' => 'storage/logo/logo2.png',
-    'logo_img_class' => ' w-40 mx-auto d-block rounded-md shadow shadow-md',
+    'logo_img_class' => 'w-full h-full mx-auto my-0 d-block rounded-md shadow shadow-md',
     'logo_img_xl' => null,
     'logo_img_xl_class' => null,
     'logo_img_alt' => null,
@@ -107,7 +107,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
@@ -152,7 +152,7 @@ return [
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
     /*
@@ -170,7 +170,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'px-2 py-0',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -290,6 +290,40 @@ return [
     */
 
     'menu' => [
+
+        [
+            'text'    => 'ADMINISTRACIÓN',
+            'icon'    => 'fas fa-file-invoice-dollar fa-fw',
+            'can' => 'admin.sales',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'route'  => 'admin.users',
+                    'icon'    => 'fas fa-users',
+                    'can' => 'admin.users'
+                ],
+                [
+                    'text' => 'Mi marketplace',
+                    'route'  => 'admin.marketplace',
+                    'icon'    => 'fas fa-box-open',
+                    'can' => 'admin.sales'
+                ],
+                [
+                    'text' => 'Mis ventas',
+                    'route'  => 'admin.sales',
+                    'icon'    => 'fas fa-hand-holding-heart',
+                    'can' => 'admin.sales'
+                ],
+                [
+                    'text' => 'Mis ganancias',
+                    'route'  => 'admin.ganancias.index',
+                    'icon'    => 'fas fa-heart',
+                    'can' => 'admin.sales'
+                ],
+            ],
+            
+        ],
+        
         // Navbar items:
         [
             'type'         => 'navbar-search',
@@ -308,11 +342,26 @@ return [
         ],
       
         //['header' => 'Jumpers'],
+
+        [
+            'text' => 'Su cuenta esta inactiva',
+            'can' => 'cuenta.inactiva',
+            'icon_color' => 'cyan',
+            'icon'    => '	fas fa-sad-cry',
+        ],
+
+        [
+            'text' => 'SSI DKR',
+            'route'  => 'ssidkr.index',
+            'can' => 'ssidkr.index',
+            'icon_color' => 'cyan',
+            'icon'    => 'fas fa-seedling',
+        ],
         [
             'text' => 'CINT',
             'route'  => 'cint.index',
             'can' => 'cint.index',
-        
+            'icon'    => 'fas fa-seedling',
             'icon_color' => 'red',
         ],
         [
@@ -320,91 +369,85 @@ return [
             'route'  => 'internals.index',
             'can' => 'internals.index',
             'icon_color' => 'yellow',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'K1000',
             'route'  => 'kmil.index',
             'can' => 'kmil.index',
             'icon_color' => 'cyan',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'K1092',
             'route'  => 'kmilnoventaydos.index',
             'can' => 'kmilnoventaydos.index',
             'icon_color' => 'green',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'K2062',
             'route'  => 'kdosmilsesentaydos.index',
             'can' => 'kdosmilsesentaydos.index',
             'icon_color' => 'red',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'K23',
             'route'  => 'kveintitres.index',
             'can' => 'kveintitres.index',
             'icon_color' => 'yellow',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'K7341',
             'route'  => 'ksietemilcuarentayuno.index',
             'can' => 'ksietemilcuarentayuno.index',
             'icon_color' => 'cyan',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'PRODEGE',
             'route'  => 'prodege.index',
             'can' => 'prodege.index',
             'icon_color' => 'green',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'SAMPLICIO',
             'route'  => 'samplicio.index',
             'can' => 'samplicio.index',
             'icon_color' => 'red',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'SCUBE',
             'route'  => 'scube.index',
             'can' => 'scube.index',
             'icon_color' => 'yellow',
+            'icon'    => 'fas fa-seedling',
         ],
         [
             'text' => 'SPECTRUM',
             'route'  => 'spectrum.index',
             'can' => 'spectrum.index',
             'icon_color' => 'cyan',
+            'icon'    => 'fas fa-seedling',
         ],
-        [
-            'text' => 'SSI DKR',
-            'route'  => 'ssidkr.index',
-            'can' => 'ssidkr.index',
-            'icon_color' => 'cyan',
-        ],
+        
         [
             'text' => 'TOLUNA',
             'route'  => 'toluna.index',
             'can' => 'toluna.index',
+            'icon'    => 'fas fa-seedling',
             'icon_color' => 'green',
         ],
 
         
-       /* ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],*/
+
+        
+        
+       
     ],
 
     /*

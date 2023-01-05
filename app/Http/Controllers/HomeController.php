@@ -18,7 +18,11 @@ class HomeController extends Controller
 
     public function index(){
 
-        return view('home');
+        $status = auth()->user()->status;
+
+      
+
+        return view('home',compact('status'));
     }
 
 

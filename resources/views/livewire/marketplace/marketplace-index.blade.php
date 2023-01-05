@@ -5,9 +5,7 @@
         <div class="flex-grow-1">
                 <input wire:model="search" placeholder="{{__('messages.busqueda_marketplace')}}" class="form-control">
         </div>
-        <div class="ml-2 mr-2 mt-1">
-                @livewire('marketplace.marketplace-create')
-        </div>
+        
     </div>
 </div>
 
@@ -34,6 +32,7 @@
             </thead>
             <tbody>
                 @foreach ($marketplaces as $marketplace)
+             
                     <tr class="bg-gray-800 border-gray-700 hover:bg-gray-600">
                         <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap text-white">
                         {{$marketplace->name}} 
@@ -42,12 +41,11 @@
                         {{$marketplace->categoryMarketplace->name}}
                         </td>
                         <td class="py-4 px-6">
-                        {{$marketplace->price}}
+                        $ {{$marketplace->price}}
                         </td>
                         <td class="py-4 px-6">
                         {{$marketplace->user->name}}
                         </td>
-                       
                         <td class="py-4 px-6 text-right">
                             <a class="font-medium text-blue-500 hover:underline" href="{{route('marketplace.shop',['marketplace'=>$marketplace])}}">Ver</a>
                         </td>

@@ -19,7 +19,8 @@
         </div>
     @endif
     
-    @livewire('jumpers.cint.cint-index') 
+    @livewire('jumpers.cint.cint-index',['jumper'=>$jumper, 'link_complete' => $link_complete]) 
+
 @stop
 
 @section('css')
